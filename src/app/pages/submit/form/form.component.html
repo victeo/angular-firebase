@@ -1,28 +1,34 @@
-<p>form works!</p>
+<div class="container">
 
+    @if(auth.error){
+    <div style="color: red">
+        {{auth.error}}
+    </div>
+    }@else {
 
-@if(auth.error){
-<div style="color: red">
-    {{auth.error}}
+    <div class="box_login">
+
+        <mat-form-field>
+            <mat-label>Input</mat-label>
+            <input matInput name="email" [(ngModel)]="email" value="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Digite sua senha</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="auth.emailSignIn(this.email, this.password)">Acessar</button>
+
+    </div>
+    }
+
+    @if(auth.user){
+    Logado como {{auth.user.email}}
+    <button (click)="auth.emailSignIn">Sair</button>
+    }
+
 </div>
-}@else {
-<form>
-    <fieldset>
-        <legend>Login</legend>
-        <span>Email</span>
-        <input type="text" name="email" [(ngModel)]="email" />
-        <br>
-        <span>Senha</span>
-        <input type="password" name="password" [(ngModel)]="password" />
-    </fieldset>
-    <button (click)="auth.emailSignIn(this.email, this.password)">Acessar</button>
-</form>
-
-
-}
-
-@if(auth.user){
-Logado como {{auth.user.email}}
-<button (click)="auth.emailSignIn">Sair</button>
-}
-

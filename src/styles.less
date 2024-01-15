@@ -1,9 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/styles/_global.less';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@font-face {
+    font-family: 'Playfair Display'; // Defina o nome da sua fonte
+    src: url('assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('ttf'); // Substitua o caminho pelo caminho real do seu arquivo
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato'; // Defina o nome da sua fonte
+    src: url('assets/fonts/Lato/Lato-Regular.ttf') format('ttf'); // Substitua o caminho pelo caminho real do seu arquivo
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,
+body {
+    height: 100%;
+}
 
 
-@primary-color: #ff0000;
 
-@secondary-color: #00ff00;
+body {
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    background-color:@theme_background;
+}
