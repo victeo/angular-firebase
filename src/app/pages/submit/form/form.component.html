@@ -1,0 +1,28 @@
+<p>form works!</p>
+
+
+@if(auth.error){
+<div style="color: red">
+    {{auth.error}}
+</div>
+}@else {
+<form>
+    <fieldset>
+        <legend>Login</legend>
+        <span>Email</span>
+        <input type="text" name="email" [(ngModel)]="email" />
+        <br>
+        <span>Senha</span>
+        <input type="password" name="password" [(ngModel)]="password" />
+    </fieldset>
+    <button (click)="auth.emailSignIn(this.email, this.password)">Acessar</button>
+</form>
+
+
+}
+
+@if(auth.user){
+Logado como {{auth.user.email}}
+<button (click)="auth.emailSignIn">Sair</button>
+}
+
