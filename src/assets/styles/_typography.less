@@ -10,6 +10,20 @@
 //
 //  Fonts
 //  ---------------------------------------------
+@font-face {
+    font-family: 'Lato'; // Defina o nome da sua fonte
+    src: url('../fonts/Lato/Lato-Regular.ttf') format('ttf'); // Substitua o caminho pelo caminho real do seu arquivo
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Playfair Display'; // Defina o nome da sua fonte
+    src: url('../fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('ttf'); // Substitua o caminho pelo caminho real do seu arquivo
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 //  Path
 
@@ -18,8 +32,8 @@
 @icons__font-name: 'icons-blank-theme'; // ToDo UI: we need to rename (it shouldn't use blank theme name) or move icon fonts to blank theme
 
 //  Font families
-@font-family__sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-@font-family__serif: Georgia, 'Times New Roman', Times, serif;
+@font-family__sans-serif: "Lato", sans-serif;;
+@font-family__serif: "Playfair Display", serif;
 @font-family__monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
 
 @font-family__base: @font-family__sans-serif;

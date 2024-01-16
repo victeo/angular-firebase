@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { FormComponent } from './pages/submit/form/form.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormComponent } from './pages/submit/login/form.component';
 import { Firestore, collection } from '@angular/fire/firestore';
-import { addDoc } from 'firebase/firestore';
 
 
 @Component({
@@ -22,9 +20,6 @@ export class AppComponent implements OnInit{
     }
 
   ngOnInit(): void {
-    //  const testCollection = collection(this.fireStore, 'test');
-    //  addDoc(testCollection, {text: "finalmente deu certo Alexandre"}
-    //     )
   }
-  title = 'angular-firebase';
+  title = 'Global Kardec - Sistema de Frequência';
 }

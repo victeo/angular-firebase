@@ -6,13 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { IndexComponent } from '../../../components/utilities/message/index/index.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @Component({
     selector: 'app-form',
     standalone: true,
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, IndexComponent],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, IndexComponent, RouterModule],
     templateUrl: './form.component.html',
     styleUrl: './form.component.less'
 })

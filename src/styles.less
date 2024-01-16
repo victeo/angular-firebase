@@ -1,19 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/styles/_global.less';
 
-@font-face {
-    font-family: 'Playfair Display'; // Defina o nome da sua fonte
-    src: url('assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('ttf'); // Substitua o caminho pelo caminho real do seu arquivo
-    font-weight: normal;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'Lato'; // Defina o nome da sua fonte
-    src: url('assets/fonts/Lato/Lato-Regular.ttf') format('ttf'); // Substitua o caminho pelo caminho real do seu arquivo
-    font-weight: normal;
-    font-style: normal;
-}
 
 html,
 body {
@@ -25,7 +13,6 @@ body {
 body {
     margin: 0;
     font-family: "Lato", sans-serif;
-    background: linear-gradient(50deg, @blue-300 0%, @blue-a700 100%);
 }
 
 .window_message {
@@ -43,4 +30,11 @@ body {
 .message-error{
     color:  @color-red;
     margin-top: 10px;
+}
+.register-item{
+    .mat-mdc-form-field-error-wrapper{
+        position: unset !important;
+        margin-top: -15px;
+        margin-bottom: 10px;
+    }
 }

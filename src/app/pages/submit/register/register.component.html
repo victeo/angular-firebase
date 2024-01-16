@@ -1,0 +1,117 @@
+<div class="container register-content">
+
+    <h1 class="title-h1">Realize o seu cadastro</h1>
+
+
+    <form class="register-form">
+        <mat-form-field class="register-form-field">
+            <mat-label>Nome completo</mat-label>
+            <input matInput type="text" [(ngModel)]="name" name="name">
+            @if (name) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        </mat-form-field>
+
+        <div class="row register-item">
+            <div class="col-12 col-md-6">
+                <mat-form-field class="register-form-field">
+                    <mat-label>Nome completo</mat-label>
+                    <input matInput type="date" [(ngModel)]="date" name="date">
+                    @if (date) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="date=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field class="register-form-field">
+                    <mat-label>Email (será seu dado de acesso)</mat-label>
+                    <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. kardec@exemplo.com">
+                    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+                    <mat-error>Por favor, digite um email válido</mat-error>
+                    }
+                    @if (emailFormControl.hasError('required')) {
+                    <mat-error>Email é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row register-item">
+            <div class="col-12 col-md-6">
+                <mat-form-field class="register-form-field">
+                    <mat-label>Digite sua senha</mat-label>
+                    <input matInput [type]="passwordHide ? 'password' : 'text'" [formControl]="passwordFormControl"
+                        (keyup)="isSame()" class="password">
+                    <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                        <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    @if(passwordFormControl.hasError('required')){
+                    <mat-error>POr favor, digite sua senha.</mat-error>
+                    }
+                    @if(passwordFormControl.hasError('minlength')){
+                    <mat-error>A senha deve ter pelo menos 6 caracteres.</mat-error>
+
+                    }
+                    @if(passwordFormControl.hasError('pattern')){
+                    <mat-error>A senha deve ter pelo menos 1 letra minúscula, 1 letra maiúscula e 1 número.</mat-error>
+
+                    }
+                    <mat-hint align="end">Precisa ter 6 letras, 1 letra maiúscula, 1 letra minúscula e 1
+                        número.</mat-hint>
+
+                        
+
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field class="register-form-field">
+                    <mat-label>Confirme sua senha</mat-label>
+
+                    <input matInput [type]="passwordHide ? 'password' : 'text'" [disabled]="!confirmPassword" [formControl]="passwordMatch"
+                        name="confirmPassword" class="password" (keyup)="passwordMatchValidator($event)">
+
+                    <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                        <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>                   
+                
+
+                    @if(true){
+                        <mat-error>As senhas não são as mesmas</mat-error>
+                    }
+                    <mat-hint align="end">Suas senhas precisam ser iguais.</mat-hint>
+
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row register-item">
+            <div class="col-12 col-md-6">
+                <mat-form-field class="register-form-field">
+                    <mat-label>Telephone</mat-label>
+                    <span matTextPrefix>+1 &nbsp;</span>
+                    <input type="tel" matInput placeholder="555-555-1234">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field class="register-form-field">
+                    <mat-label>País</mat-label>
+                    <mat-select>
+                        <mat-option value="option">Brasil</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+
+
+
+    </form>
+
+
+</div>

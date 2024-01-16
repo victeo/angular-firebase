@@ -1,0 +1,67 @@
+@import "../../../assets/styles/_global.less";
+
+.mat-typography {
+    background-color: aliceblue !important;
+}
+
+.navbar.bg-body-tertiary.navbar-primary {
+    background: linear-gradient(50deg, @blue-300 0%, @blue-a700 100%);
+    box-shadow: 0px 5px 10px 0px #0000003d;
+
+    .container {
+        .navbar-brand {
+            .logo {
+                width: 100%;
+                max-width: @indent__m * 10;
+            }
+
+        }
+
+        .navbar-collapse {
+            .navbar-nav {
+                justify-content: flex-end;
+                width: 100%;
+
+                .nav-item {
+                    a {
+                        display: block;
+                        color: @color-white;
+                        padding: 25px;
+                        transition: color 0.3s;
+                        font-weight: 600;
+
+                        &.active {
+                            color: @blue-900;
+                        }
+
+                        &:hover {
+                            color: @blue-900;
+                        }
+                    }
+
+                    &.dropdown {
+                        .dropdown-menu {
+                            background-color: @gray-navbar;
+                            box-shadow: 0px 5px 10px 0px #0000003d;
+                            border: unset;
+                            border-radius: 2px;
+
+                            li {
+                                .dropdown-item {
+                                    color: @blue-900 ;
+
+                                    &:hover{
+                                        background-color: @blue-900;
+                                        color: @color-white;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

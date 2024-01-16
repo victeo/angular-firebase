@@ -1,0 +1,35 @@
+@import '../../../../assets/styles/_global.less';
+
+
+.container{
+    &.register-content{
+        margin-top: @indent__xl;
+        .title-h1{
+            text-align: center;
+            font-family: @font-family__serif;
+        }
+
+        .register-form{
+            width: 100%;
+            margin-top: 25px;
+
+           
+
+            &-field{
+                width: 100%;
+
+                input{
+                   text-transform: uppercase;
+
+                   &.password{
+                    text-transform: unset;
+                   }
+                }
+            }
+        }
+    }
+}
+
+.mat-mdc-form-field-error-wrapper{
+    position: unset !important;
+}

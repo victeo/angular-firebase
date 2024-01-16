@@ -1,6 +1,7 @@
-<div class="container">
+<div class="container-login">
 
     <div class="box_login">
+        <img src="assets/img/logo2.png" class="logo" alt="Imagem 1">
 
         <mat-form-field>
             <mat-label>Digite seu email</mat-label>
@@ -16,12 +17,20 @@
             </button>
         </mat-form-field>
         @if(auth.error && messageVisible){
-            <span class="message-error">Senha incorreta</span>
+        <span class="message-error">Senha incorreta</span>
         }
-        <button mat-raised-button color="primary" (click)="validationLogin(this.email, this.password)">Acessar</button>
+        <div class="actions">
+            <button mat-raised-button color="primary"
+                (click)="validationLogin(this.email, this.password)">Acessar</button>
+            <a mat-raised-button class="button-secondary" color="secondary" routerLink="/register">Registre-se</a>
+
+            <a mat-button color="primary" routerLink="/">Página inicial</a>
+
+        </div>
+
 
         @if(auth.error && messageVisible){
-            <app-message-error-validation text="Mensagem de erro" [timeToDisplay]="5000"></app-message-error-validation>
+        <app-message-error-validation text="Mensagem de erro" [timeToDisplay]="5000"></app-message-error-validation>
         }
 
     </div>
