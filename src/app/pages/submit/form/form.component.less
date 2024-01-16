@@ -2,6 +2,9 @@
 
 
 .container {
+    .mixin-display();
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
     width: 100%;
     height: 100%;
 
@@ -10,10 +13,12 @@
         .mixin-display();
         flex-direction: column;
         margin: 0 auto;
-        width: 50%;
-        background-color: @blue-a700;
+        width: 450px;
+        background-color: @color-white;
         padding: @indent__l;
         border-radius: @indent__xs;
+        box-shadow: 5px 5px 10px 0px #00000024;
+
         .screen-small(
            {
             width: 100%;

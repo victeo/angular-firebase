@@ -25,5 +25,22 @@ body {
 body {
     margin: 0;
     font-family: "Lato", sans-serif;
-    background-color:@theme_background;
+    background: linear-gradient(50deg, @blue-300 0%, @blue-a700 100%);
+}
+
+.window_message {
+    &.mat-mdc-snack-bar-container {
+        .mdc-snackbar__surface {
+            background-color: @color-red;
+        }
+
+        .mdc-snackbar__label {
+            color: black;
+        }
+    }
+}
+
+.message-error{
+    color:  @color-red;
+    margin-top: 10px;
 }
