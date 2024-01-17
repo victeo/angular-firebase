@@ -5,7 +5,7 @@ import { FormsModule, Validators, ReactiveFormsModule, FormControl } from '@angu
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-
+import { UserService } from '../../../services/register/user.service';
 
 
 @Component({
@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
     templateUrl: './register.component.html',
     styleUrl: './register.component.less'
 })
+
 export class RegisterComponent {
     name = '';
     date = '';
@@ -28,32 +29,29 @@ export class RegisterComponent {
     password = '';
     confirmPassword = false;
     passwordMatch = new FormControl('', [
-        Validators.required,
-        this.MatchValidator.bind(this) // Certifique-se de vincular a função do validador corretamente
-      ]);
+        Validators.required
+    ]);
     Match = false;
     pais = '';
+    centro = '';
 
-    isSame(): void {
-        if (this.passwordFormControl.value) {
-            this.confirmPassword = true;
+    constructor(public registerUser: UserService) { }
+
+
+    setUser(): void {
+        console.log(this.passwordFormControl)
+        const data = {
+            name: this.name,
+            pais: this.pais,
+            centro:this.centro 
         }
-    }
-    MatchValidator(control: FormControl): { [key: string]: boolean } | null {
-        // Implemente sua lógica de validação aqui
-        const password = control.value; // Obtém o valor do campo de senha
-        
-        // Adicione lógica para verificar se a senha corresponde aos seus critérios
-        return null; // Retorna null se a validação passar, ou um objeto com o erro se a validação falhar
-      }
-
-    passwordMatchValidator(_event: any): void {
-
-        let valueInput = _event.target.value
-
-
+        if(this.emailFormControl.value && this.passwordFormControl.value){
+            console.log(this.emailFormControl.value)
+            this.registerUser.register(this.emailFormControl.value, this.passwordFormControl.value, data)
+        }
 
     }
+
 
 
 

@@ -44,13 +44,13 @@
                 <mat-form-field class="register-form-field">
                     <mat-label>Digite sua senha</mat-label>
                     <input matInput [type]="passwordHide ? 'password' : 'text'" [formControl]="passwordFormControl"
-                        (keyup)="isSame()" class="password">
+                         class="password">
                     <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
                         <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                     @if(passwordFormControl.hasError('required')){
-                    <mat-error>POr favor, digite sua senha.</mat-error>
+                    <mat-error>Por favor, digite sua senha.</mat-error>
                     }
                     @if(passwordFormControl.hasError('minlength')){
                     <mat-error>A senha deve ter pelo menos 6 caracteres.</mat-error>
@@ -63,26 +63,24 @@
                     <mat-hint align="end">Precisa ter 6 letras, 1 letra maiúscula, 1 letra minúscula e 1
                         número.</mat-hint>
 
-                        
-
                 </mat-form-field>
             </div>
             <div class="col-12 col-md-6">
                 <mat-form-field class="register-form-field">
                     <mat-label>Confirme sua senha</mat-label>
 
-                    <input matInput [type]="passwordHide ? 'password' : 'text'" [disabled]="!confirmPassword" [formControl]="passwordMatch"
-                        name="confirmPassword" class="password" (keyup)="passwordMatchValidator($event)">
+                    <input matInput [type]="passwordHide ? 'password' : 'text'" [formControl]="passwordMatch"
+                        name="confirmPassword" class="password">
 
                     <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
                         <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>                   
                 
-
-                    @if(true){
-                        <mat-error>As senhas não são as mesmas</mat-error>
+                    @if(passwordMatch.hasError('required')){
+                        <mat-error>Campo obrigatório</mat-error>
                     }
+                  
                     <mat-hint align="end">Suas senhas precisam ser iguais.</mat-hint>
 
                 </mat-form-field>
@@ -91,10 +89,9 @@
         <div class="row register-item">
             <div class="col-12 col-md-6">
                 <mat-form-field class="register-form-field">
-                    <mat-label>Telephone</mat-label>
-                    <span matTextPrefix>+1 &nbsp;</span>
-                    <input type="tel" matInput placeholder="555-555-1234">
-                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-label>Telefone</mat-label>
+                    <span matTextPrefix>+55 &nbsp;</span>
+                    <input type="tel" matInput placeholder="62 99999-9999">
                 </mat-form-field>
             </div>
             <div class="col-12 col-md-6">
@@ -107,11 +104,17 @@
             </div>
         </div>
 
-
-
-
-
+        <mat-form-field class="register-form-field">
+            <mat-label>Casa Espírita</mat-label>
+            <input matInput type="text" [(ngModel)]="centro" name="centro">
+            @if (centro) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="centro=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            }
+        </mat-form-field>
     </form>
+    <button mat-button color="primary" (click)="setUser()" >Enviar</button>
 
 
 </div>
