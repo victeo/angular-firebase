@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../../services/register/user.service';
 
+import { User } from '../../../models/user';
 
 @Component({
     selector: 'app-register',
@@ -17,38 +18,58 @@ import { UserService } from '../../../services/register/user.service';
 })
 
 export class RegisterComponent {
+
+    formControl = {
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)
+        ]),
+        passwordMatch: new FormControl('', Validators.required)
+    }
     name = '';
     date = '';
-    emailFormControl = new FormControl('', [Validators.required, Validators.email]);
     passwordHide = true;
-    passwordFormControl = new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)
-    ]);
     password = '';
     confirmPassword = false;
-    passwordMatch = new FormControl('', [
-        Validators.required
-    ]);
     Match = false;
-    pais = '';
-    centro = '';
+    country = '';
+    spirit = '';
+    telephone = '';
 
-    constructor(public registerUser: UserService) { }
+    private user: User;
+
+    constructor(public registerUser: UserService) {
+
+        this.user = new User(
+            '',
+            '',
+            new Date(),
+            '',
+            '',
+            '',
+            '',
+            '',
+            ['STUDENT'],
+            '',
+            ''
+        );
+    }
 
 
     setUser(): void {
-        console.log(this.passwordFormControl)
-        const data = {
-            name: this.name,
-            pais: this.pais,
-            centro:this.centro 
-        }
-        if(this.emailFormControl.value && this.passwordFormControl.value){
-            console.log(this.emailFormControl.value)
-            this.registerUser.register(this.emailFormControl.value, this.passwordFormControl.value, data)
-        }
+
+        // Valores obrigatórios
+        this.user.name = this.name;
+        this.user.birthday = new Date(this.date);
+        this.user.email = this.formControl.email.value!.toString();
+        this.user.password = this.formControl.password.value!.toString();
+        this.user.country = this.country;
+        this.user.spiritCenter = this.spirit;
+        this.user.whatsapp = this.telephone;
+
+        this.registerUser.createNewUser(this.user.email, this.user.password)
 
     }
 

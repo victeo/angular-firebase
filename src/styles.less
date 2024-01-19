@@ -17,22 +17,30 @@ body {
 
 .window_message {
     &.mat-mdc-snack-bar-container {
-        .mdc-snackbar__surface {
-            background-color: @color-red;
+        &.warning {
+            .mdc-snackbar__surface {
+                background-color: @color-red;
+            }
+
+            .mdc-snackbar__label {
+                color: black;
+            }
         }
 
-        .mdc-snackbar__label {
-            color: black;
-        }
     }
+
+
 }
 
-.message-error{
-    color:  @color-red;
+.message-error {
+    color: @color-red;
     margin-top: 10px;
+
+
 }
-.register-item{
-    .mat-mdc-form-field-error-wrapper{
+
+.register-item {
+    .mat-mdc-form-field-error-wrapper {
         position: unset !important;
         margin-top: -15px;
         margin-bottom: 10px;
