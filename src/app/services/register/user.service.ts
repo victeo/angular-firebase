@@ -4,11 +4,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import firebase from 'firebase/compat/app';
 import { User } from '../../models/user';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { SnackBarCustomComponent } from '../../components/SnackBar/snack-bar-custom/snack-bar-custom.component';
-
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { IndexService as SnackBarCustom } from '../utilities/snackbar/index.service';
+import { ConnectionService } from '../firebase/connection.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,81 +18,91 @@ export class UserService implements OnInit {
     constructor(
         public auth: AngularFireAuth,
         public firestore: Firestore,
-        private snackBar: MatSnackBar
+        private afs: AngularFirestore,
+        private showMessage: SnackBarCustom,
+        private signIn: ConnectionService,
+        private router: Router
 
     ) { }
     ngOnInit(): void {
-        throw new Error('Method not implemented.');
     }
 
-    async register(email: string, password: string, data: any) {
-       // Cria um novo usuário
-        const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
-        // Acesse o usuário dentro de UserCredential
-        const user = userCredential.user;
 
-        // Agora você pode acessar o uid do usuário
-        const uid = user!.uid;
+    async register(email: string, password: string, registerUser: User) {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        // User is signed in, see docs for a list of available properties
+                        // https://firebase.google.com/docs/reference/js/auth.user
+                        let uid = user.uid;
 
-        const database = firebase.database();
-        database.ref('/users').child(uid).set({
-            name: data.name,
-            email: email,
-        });
+                        const collection = this.afs.collection<any>('users');
+
+                        const userObject = {
+                            name: registerUser.name,
+                            email: registerUser.email,
+                            birthday: registerUser.birthday,
+                            country: registerUser.country,
+                            spiritCenter: registerUser.spiritCenter,
+                            whatsapp: registerUser.whatsapp,
+                        };
+
+                        collection.doc(uid).set(userObject);
+
+                        this.showMessage.open(`Conta Criada com sucesso`, 'success', 'check_circle');
+                        this.signIn.emailSignIn(email, password);
+                        this.router.navigate(['/']);
 
 
-        const dataBaseCollection = collection(this.firestore, 'user');
+                    } else {
+                        // User is signed out
+                        // ...
+                    }
+                });
 
-        addDoc(dataBaseCollection, data)
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
 
     }
-    showMessage(msg: string, color?: string): void {
-        console.log('entrou')
-        this.snackBar.openFromComponent(SnackBarCustomComponent, {
-          duration: 500000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          panelClass: 'window_message',
-          data: { message: msg, icon: 'warning', color: color || 'default-color'} // Passando os dados para o componente
-        });
-      }
-    async createNewUser(email: string, password: string): Promise<void> {
 
-        this.auth.fetchSignInMethodsForEmail(email).then((response) => {
-            console.log(response)
-            // The returned 'providers' is a list of the available providers
-            // linked to the email address. Please refer to the guide for a more
-            // complete explanation on how to recover from this error.
-        });
-       
-       await this.auth.createUserWithEmailAndPassword(email, password)
-           .then((response: any) => {
-               console.log(response)
-               this.showMessage(`Conta Criada com sucesso`)
+    async createNewUser(email: string, password: string, user: User): Promise<void> {
 
-           })
-           .catch(error => {
-            console.log(error.code)
-               switch (error.code) {
-                  case 'auth/email-already-in-use':
-                    this.showMessage(`Endereço de email: ${email} já está em uso em outra conta`, 'primary')
-                    break;
-                  case 'auth/invalid-email':
-                    this.showMessage(`O email: ${email} é inválido.`)
-                     break;
-                   case 'auth/operation-not-allowed':
-                    this.showMessage(`O email: ${email} não é permitido.`)
-                     break;
-                   case 'auth/missing-password':
-                    this.showMessage(`Campo da senha vazio`)
-                     break;
-                   case 'auth/weak-password':
-                    this.showMessage(`A senha não é forte o suficiente.`)
-                     break;
-                   default:
-                     console.log(error.message);
-                     break;
-                 }
-             });
+        await this.auth.createUserWithEmailAndPassword(email, password)
+            .then((response: any) => {
+                this.register(email, password, user);
+                
+
+            })
+            .catch(error => {
+                console.log(error.code)
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        this.showMessage.open(`Endereço de email: ${email} já está em uso em outra conta`);
+                        break;
+                    case 'auth/invalid-email':
+                        this.showMessage.open(`O email: ${email} é inválido.`)
+                        break;
+                    case 'auth/operation-not-allowed':
+                        this.showMessage.open(`O email: ${email} não é permitido.`)
+                        break;
+                    case 'auth/missing-password':
+                        this.showMessage.open(`Campo da senha vazio`)
+                        break;
+                    case 'auth/weak-password':
+                        this.showMessage.open(`A senha não é forte o suficiente.`)
+                        break;
+                    default:
+                        console.log(error.message);
+                        break;
+                }
+            });
     }
 }

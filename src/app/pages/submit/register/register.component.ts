@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../../services/register/user.service';
 
 import { User } from '../../../models/user';
+import { IndexService as SnackBarCustom } from '../../../services/utilities/snackbar/index.service';
 
 @Component({
     selector: 'app-register',
@@ -27,7 +28,7 @@ export class RegisterComponent {
             Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)
         ]),
         passwordMatch: new FormControl('', Validators.required)
-    }
+    };
     name = '';
     date = '';
     passwordHide = true;
@@ -40,7 +41,7 @@ export class RegisterComponent {
 
     private user: User;
 
-    constructor(public registerUser: UserService) {
+    constructor(private registerUser: UserService, private snackBar:  SnackBarCustom) {
 
         this.user = new User(
             '',
@@ -69,7 +70,12 @@ export class RegisterComponent {
         this.user.spiritCenter = this.spirit;
         this.user.whatsapp = this.telephone;
 
-        this.registerUser.createNewUser(this.user.email, this.user.password)
+        if (this.user.password === this.formControl.passwordMatch.value!.toString()) {
+            this.registerUser.createNewUser(this.user.email, this.user.password, this.user)
+        } else {
+            this.snackBar.open('As senhas precisam ser idênticas')
+        }
+
 
     }
 

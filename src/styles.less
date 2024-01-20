@@ -15,21 +15,35 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-.window_message {
-    &.mat-mdc-snack-bar-container {
-        &.warning {
-            .mdc-snackbar__surface {
-                background-color: @color-red;
-            }
+// Styles for the default Snackbar class.
 
-            .mdc-snackbar__label {
-                color: black;
-            }
-        }
-
-    }
+.default-class {
+    .generate-snackbar(@color-red-lighter,@color-danger);
+}
 
 
+// Styles for the primary Snackbar class.
+.primary {
+    .generate-snackbar(@color-blue3, @color-white);
+}
+
+// Styles for the success Snackbar class.
+.success {
+    .generate-snackbar(@color-green-lighter, @color-green);
+}
+
+// Styles for the success Snackbar class.
+.warning  {
+    .generate-snackbar(@color-warning-lighter, @color-warning);
+}
+
+// Styles for the danger Snackbar class.
+.danger {
+    .generate-snackbar(@color-red-lighter,@color-danger);
+}
+// Styles for the info Snackbar class.
+.info {
+    .generate-snackbar(@color-info-lighter, @color-info);
 }
 
 .message-error {

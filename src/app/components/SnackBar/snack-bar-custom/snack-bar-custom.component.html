@@ -1,4 +1,3 @@
-@if(data.color === 'default-color'){
 <div class="message-container warning">
     <div class="message-container__content">
         <span class="material-icons">{{ data.icon }}</span>
@@ -10,18 +9,3 @@
         </button>
     </span>
 </div>
-}
-
-@if(data.color === 'primary'){
-    <div class="message-container primary">
-        <div class="message-container__content">
-            <span class="material-icons">check_circle</span>
-            <span>{{ data.message }}</span>
-        </div>
-        <span matSnackBarActions>
-            <button class="" mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">
-                <span class="material-icons">close</span>
-            </button>
-        </span>
-    </div>
-    }

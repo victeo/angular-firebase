@@ -1,4 +1,5 @@
 export class User {
+    toJSON: any;
     constructor(
         public uid: string,
         public name: string,
