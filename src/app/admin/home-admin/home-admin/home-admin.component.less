@@ -1,0 +1,32 @@
+@import "../../../../assets/styles/_global.less";
+
+.nav-container {
+    .side_nav {
+        padding: 0 15px;
+        background-color: @color-white;
+
+        .logo {
+            .mixin-display();
+            align-items: center;
+            gap: @indent__xxs;
+            padding: 15px 0;
+            max-width: 260px;
+
+            .logo-img {
+                img {
+                    max-width: 42px;
+                }
+            }
+
+            .logo-normal{
+                color: @color-white;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-family: 'Play';
+                font-weight: @font-weight__bold;
+                color: @theme__color__primary;
+                font-size: 20px;
+            }
+        }
+    }
+}

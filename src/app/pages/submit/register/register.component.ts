@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -9,6 +9,8 @@ import { UserService } from '../../../services/register/user.service';
 
 import { User } from '../../../models/user';
 import { IndexService as SnackBarCustom } from '../../../services/utilities/snackbar/index.service';
+import { UserService as loggedInformation } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-register',
@@ -18,7 +20,7 @@ import { IndexService as SnackBarCustom } from '../../../services/utilities/snac
     styleUrl: './register.component.less'
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
     formControl = {
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -41,7 +43,12 @@ export class RegisterComponent {
 
     private user: User;
 
-    constructor(private registerUser: UserService, private snackBar:  SnackBarCustom) {
+    constructor(
+        private registerUser: UserService,
+        private snackBar: SnackBarCustom,
+        private loginInformation: loggedInformation,
+        private _router: Router,
+    ) {
 
         this.user = new User(
             '',
@@ -57,6 +64,11 @@ export class RegisterComponent {
             ''
         );
     }
+    ngOnInit(): void {
+        if (this.loginInformation.lsLogged()) {
+            this._router.navigate(['/']);
+        }
+    }
 
 
     setUser(): void {
@@ -69,13 +81,13 @@ export class RegisterComponent {
         this.user.country = this.country;
         this.user.spiritCenter = this.spirit;
         this.user.whatsapp = this.telephone;
+        this.user.roles = ['student','admin'];
 
         if (this.user.password === this.formControl.passwordMatch.value!.toString()) {
             this.registerUser.createNewUser(this.user.email, this.user.password, this.user)
         } else {
             this.snackBar.open('As senhas precisam ser idênticas')
         }
-
 
     }
 

@@ -2,25 +2,38 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserService {
 
     public identity: any;
 
 
-  constructor() { }
+    constructor() { }
 
 
-  getIdentity() {
-    let identity = JSON.parse(localStorage.getItem('identity') as string);
+    getIdentity() {
+        let identity = JSON.parse(localStorage.getItem('identity') as string);
 
-    if (identity != 'undefined') {
-      this.identity = identity;
-    } else {
-      this.identity = null;
+        if (identity != 'undefined' || null) {
+            this.identity = identity;
+        } else {
+            this.identity = null;
+        }
+
+        return this.identity;
     }
 
-    return this.identity;
-  }
+    lsLogged() {
+        let identity = JSON.parse(localStorage.getItem('identity') as string);
+        
+        if (identity === undefined) {
+            return false;
+        } else if (identity === null) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 }

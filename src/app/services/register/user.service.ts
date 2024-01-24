@@ -49,6 +49,7 @@ export class UserService implements OnInit {
                             birthday: registerUser.birthday,
                             country: registerUser.country,
                             spiritCenter: registerUser.spiritCenter,
+                            roles:registerUser.roles,
                             whatsapp: registerUser.whatsapp,
                         };
 

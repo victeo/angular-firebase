@@ -1,0 +1,50 @@
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav class="side_nav" mode="side" opened fixedInViewport="true" fixedTopGap="0">
+        <div class="logo">
+            <a class="simple-text logo-mini">
+                <div class="logo-img">
+                    <img src="assets/img/logo_simples.png">
+                </div>
+            </a>
+            <a href="https://www.creative-tim.com/?_ga=2.82714006.129272922.1705875563-1636308212.1705875563"
+                class="simple-text logo-normal"> Global Kardec </a>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-wrapper">
+
+            <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon>face</mat-icon>
+                            Nome do usuário
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="user-info">
+
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+
+        <a class="side_nav-list" routerLink="/">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+            <span>Home</span>
+
+        </a>
+        <a class="side_nav-list" routerLink="/products">
+            <span class="material-symbols-outlined">
+                storefront
+            </span>
+            <span>Produtos</span>
+
+        </a>
+    </mat-sidenav>
+    <mat-sidenav-content class="nav-container_content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -4,7 +4,10 @@ import { UserService } from '../user.service';
 
 @Injectable()
 export class UserGuard implements CanActivate {
-    constructor(private _router: Router, private _userService: UserService) { }
+    constructor(private _router: Router, private _userService: UserService) { 
+        let identity = this._userService.getIdentity()
+        console.log(identity)
+    }
 
     canActivate() {
         let identity = this._userService.getIdentity();

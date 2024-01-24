@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarCustomComponent } from '../../components/SnackBar/snack-bar-custom/snack-bar-custom.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
-
+import { getAuth, signOut } from "firebase/auth";
+import { IndexService as snackBar } from '../utilities/snackbar/index.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +20,9 @@ export class ConnectionService {
 
     constructor(
         public auth: AngularFireAuth,
-        private snackBar: MatSnackBar,
+        private snackBar: snackBar,
         private afs: AngularFirestore,
+        private _router: Router,
 
     ) { }
 
@@ -61,27 +63,26 @@ export class ConnectionService {
                 email: this.user.email
 
             }
+            this.snackBar.open('Seja-bem vindo!', 'success', 'check_circle');
+            this._router.navigate(['/'])
+
+
         } catch (error) {
-            this.showMessage('Dados incorretos')
+            this.snackBar.open('Dados incorretos')
             this.error = error;
         }
     }
 
     async signOut() {
-        await this.auth.signOut();
+        await this.auth.signOut()
+        .then(() => {
+            localStorage.removeItem('identity')
+            this.snackBar.open('Você foi deslogado', 'success', 'check_circle');
+
+          }).catch((error) => {
+            console.error(error)
+          });
         this.user = null;
     }
-
-    showMessage(msg: string): void {
-        this.snackBar.openFromComponent(SnackBarCustomComponent, {
-            duration: 3000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: 'window_message',
-            data: { message: msg, icon: 'warning' } // Passando os dados para o componente
-        });
-    }
-
-
 
 }

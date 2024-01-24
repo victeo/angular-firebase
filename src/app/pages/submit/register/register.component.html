@@ -91,14 +91,14 @@
                 <mat-form-field class="register-form-field">
                     <mat-label>Telefone</mat-label>
                     <span matTextPrefix>+55 &nbsp;</span>
-                    <input type="tel" matInput placeholder="62 99999-9999">
+                    <input type="tel" matInput placeholder="62 99999-9999" name="telephone"  [(ngModel)]="telephone">
                 </mat-form-field>
             </div>
             <div class="col-12 col-md-6">
                 <mat-form-field class="register-form-field">
                     <mat-label>País</mat-label>
-                    <mat-select>
-                        <mat-option value="option">Brasil</mat-option>
+                    <mat-select  name="country"  [(ngModel)]="country">
+                        <mat-option value="Brasil">Brasil</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -106,9 +106,9 @@
 
         <mat-form-field class="register-form-field">
             <mat-label>Casa Espírita</mat-label>
-            <input matInput type="text" [(ngModel)]="country" name="country">
-            @if (country) {
-            <button matSuffix mat-icon-button aria-label="Clear" (click)="country=''">
+            <input matInput type="text" [(ngModel)]="spirit" name="spirit">
+            @if (spirit) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="spirit=''">
                 <mat-icon>close</mat-icon>
             </button>
             }
